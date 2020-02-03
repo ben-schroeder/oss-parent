@@ -1,11 +1,14 @@
 language: java
 os: linux
 dist: bionic
-
+env:
+  global:
+  - secure: ANP0/LW555Me/h3S/+kTANpjSAOjL/3ZgUvtWXvV3q4ahlro3i1co+g7DuFKcV4siEK+AnRpDTWBmCQt5gQTgXW63r6kRI+0kGEP5aNbvQhTQFXjYbVF4Xwux3Z2cmfsjxUy8qWx70Lm6ZFpMKMltWuiIvS9O5MggNjk8ZA4rZ6P7zUJTnwhSxNuIMALjhx1T7gYvVEYoPHY5TWJ5nBhdpRuKgd71F3fSKSPFI8gro9sI5sHNLABuS0mRObX7bqL+yJ9B+eC4fcuVFw/ClN3cS3m3U3W8LvqCAgLtMnbRsSK3O87mHzwSFRQGQLFUrNea5TGrv0NGDqWKC9jpmVUM5ajriX+mIVSlgxUp/amDOX+FjpKZ2foVpOMycrH5qBBkJxo0o0z/yVWtnoZ2uZDIcQ5E0AotTUqFuw49BkQS3mIzc+akcl1QqKzACUYhRch0/eGYy1ZkmJi2P569TFHgixFDSsh+OEhdwwST6xeCeO6sZOvoDkqwI1uhfraEa+5W9m/CR3Ek6r/j2Sh0q5s2vD9pp7GzBDGghs2A7TD+iLgclJUQIJQSb1euWSfgSCjZ+3t1L0qxdz82KG+Gbw9lgW7UFAUS+kcuLa25MEzYXw/AyZOyN4GyYC0T4KvXSLjQ+G2ypaQmCYkTb6RAV0XCcaSEs3itqcmA3F1AhmMcI4=
+  - secure: BQRozneOul5Gfk264KKwOPzpeXCq6WxLf8kCYaJs9+1rI/EBbWWMZNth5amAz+P9oH/6mUYChGwJ1mcB6lixPhztiKgjXE4hXxREeqCjFdGnIlqTlPGB7TUByQifmqjiCxKdZJa8opEGSs1peWJRQM4vbchmA54btoe7YqNTMg169bi1f20AX1AnbCCnfVGIKr0MNn0dYdQhHe8+A0VvEg+yd+bnN+etkbRpkt1pfLoKMEuMzO3QQHuYOy3rbHDW4wYgPuiDqgJRmSOWedSOuBLizW9gwsJeLtmuys+gUexUwX3CHxlA5frHCmeZYjajdrTW0ljEP41TtQhIwZaraD8ih+fOJwGimnqM70cEns+eyJ/+zO2EmBuKNERYHmhewJZFxpP3KvXG1FqO3ZlMqFetl98OdZtzUXP/Gry+eo8MapqK6GaIoS5/qhk7uSLiW+/4X9OUsUprWTdMnY2OGclrf2VyouLAs0YhHyBiRgOv1bxrRO1CjTy579pHvIsryas3UU0Nd8DcPSp6Oz4BeCATRZeCntLFlZ+qUKz/BpCG/Br7mA46g46sE//QiG1qXuwkajklIOUCXa1eN1dP7gJecPyIl2pz5HdwAzwT3CGeHdi2mZdpDp0ENjyoJxLe31vm2I9ChBIZpUuZ4ZRJ4tH1Wh4NXbJ2M6aPRRyAfNI=
+  - secure: GD0nAxdd99KLMyzXb8Fht/dW16+7oz6qs+DohQLtrXhNLLhtePi7N1ibtBq9Fia/r8O6KDLVy4HrUGD4eb1ohrEZWZEv0erUgl7o8Yijn4gyLpXd+j2wL3XGdySHpaHV3h9/k4HmG8zfGkvhpfIEmtoECuFv0DN2xO398dN3o3zNbi41A6773CfWN4rPtIejeL8IJdJ8LZ5TQuwnNycfJcc3zKR9jcpoS66cr1lUuMdlA7YHk5wyHMgaJ9SSwFoCixBROhYEOFfXkW5XCqYBeOcZD7h4n8QQ5ynm6/j50U5kanvx/xHJicRcEHEmImpB8MMVYJpCqEIWvZlnpvl2zgk38ZHve1L7wtDjfq7ti4O3ncjEVOTmRijdn/5BiMa93bApm98HuYrZuK70Zl+cnvFzTAEMT8Lj9M/ZVMhrD6TcKCq5p+6/Zk9GvVT6IkE2N3qAjuf1tOXicf1+GRtTSOq6twmrQpy/E8q24Wh/JARo60T6W8CSCvR92jHFP59VSY3XwkSBjbQuu5uQQysSIlZoPWmj9WlihgGH4yzQM0K683ddhsRCJZcTJEGFK/+dn4++gwennroKo7FxXrc5zw3eBl5Mlcby0eoYKQflOh1M8iEfJRQo0AAax4uFGhspeFLgMLvBy+W2Z4BHtZ82V50ryGmoe6jDxhoQJN4jiXc=
 cache:
   directories:
   - "$HOME/.m2"
-
 jobs:
   include:
   - stage: build only
@@ -14,3 +17,32 @@ jobs:
     - mvn clean dependency:go-offline --settings .maven.xml
     install:
     - mvn install --settings .maven.xml
+  - stage: build AND use tag version AND deploy release
+    if: tag IS present
+    before_script:
+    - mvn clean dependency:go-offline --settings .maven.xml
+    - mvn org.codehaus.mojo:versions-maven-plugin:2.7:set -DgenerateBackupPoms=false
+      -DnewVersion=$TRAVIS_TAG --settings .maven.xml
+    - openssl aes-256-cbc -K $encrypted_2f39a2a0c264_key -iv $encrypted_2f39a2a0c264_iv
+      -in deployment/signingkey.asc.enc -out deployment/signingkey.asc -d
+    - gpg2 --keyring=$TRAVIS_BUILD_DIR/pubring.gpg --no-default-keyring --batch --import
+      deployment/signingkey.asc
+    - gpg2 --allow-secret-key-import --keyring=$TRAVIS_BUILD_DIR/secring.gpg --no-default-keyring
+      --batch --import deployment/signingkey.asc
+    script:
+    - mvn deploy --settings .maven.xml -Prelease -Dgpg.executable=gpg2 -Dgpg.keyname=E137DC17A85F039B
+      -Dgpg.publicKeyring=$TRAVIS_BUILD_DIR/pubring.gpg -Dgpg.secretKeyring=$TRAVIS_BUILD_DIR/secring.gpg
+      -Dgpg.passphrase=$PASSPHRASE
+  - stage: build AND deploy snapshot
+    if: branch = master
+    before_script:
+    - openssl aes-256-cbc -K $encrypted_2f39a2a0c264_key -iv $encrypted_2f39a2a0c264_iv
+      -in deployment/signingkey.asc.enc -out deployment/signingkey.asc -d
+    - gpg2 --keyring=$TRAVIS_BUILD_DIR/pubring.gpg --no-default-keyring --batch --import
+      deployment/signingkey.asc
+    - gpg2 --allow-secret-key-import --keyring=$TRAVIS_BUILD_DIR/secring.gpg --no-default-keyring
+      --batch --import deployment/signingkey.asc
+    script:
+    - mvn deploy --settings .maven.xml -Prelease -Dgpg.executable=gpg2 -Dgpg.keyname=E137DC17A85F039B
+      -Dgpg.publicKeyring=$TRAVIS_BUILD_DIR/pubring.gpg -Dgpg.secretKeyring=$TRAVIS_BUILD_DIR/secring.gpg
+      -Dgpg.passphrase=$PASSPHRASE
