@@ -58,7 +58,7 @@
     <maven-install-plugin.version>2.5.2</maven-install-plugin.version>
     <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
     <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
-    <flatten-maven-plugin.version>1.2.1</flatten-maven-plugin.version>
+    <flatten-maven-plugin.version>1.2.2</flatten-maven-plugin.version>
     <tidy-maven-plugin.version>1.1.0</tidy-maven-plugin.version>
     <nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
     <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
