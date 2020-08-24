@@ -4,7 +4,7 @@
 
   <groupId>eu.benschroeder</groupId>
   <artifactId>oss-parent</artifactId>
-  <version>2-SNAPSHOT</version>
+  <version>3-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <name>oss-parent</name>
@@ -57,11 +57,11 @@
     <maven-enforcer-plugin.version>1.4.1</maven-enforcer-plugin.version>
     <maven-install-plugin.version>2.5.2</maven-install-plugin.version>
     <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
-    <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
-    <flatten-maven-plugin.version>1.2.1</flatten-maven-plugin.version>
+    <maven-resources-plugin.version>3.2.0</maven-resources-plugin.version>
+    <flatten-maven-plugin.version>1.2.5</flatten-maven-plugin.version>
     <tidy-maven-plugin.version>1.1.0</tidy-maven-plugin.version>
     <nexus-staging-maven-plugin.version>1.6.8</nexus-staging-maven-plugin.version>
-    <versions-maven-plugin.version>2.7</versions-maven-plugin.version>
+    <versions-maven-plugin.version>2.8.1</versions-maven-plugin.version>
   </properties>
 
   <build>
