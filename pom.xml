@@ -61,7 +61,7 @@
     <flatten-maven-plugin.version>1.2.7</flatten-maven-plugin.version>
     <tidy-maven-plugin.version>1.1.0</tidy-maven-plugin.version>
     <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
-    <versions-maven-plugin.version>2.10.0</versions-maven-plugin.version>
+    <versions-maven-plugin.version>2.13.0</versions-maven-plugin.version>
   </properties>
 
   <build>
