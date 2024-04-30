@@ -56,7 +56,7 @@
     <maven-deploy-plugin.version>3.1.0</maven-deploy-plugin.version>
     <maven-enforcer-plugin.version>3.0.0</maven-enforcer-plugin.version>
     <maven-install-plugin.version>3.1.0</maven-install-plugin.version>
-    <maven-jar-plugin.version>3.2.2</maven-jar-plugin.version>
+    <maven-jar-plugin.version>3.4.1</maven-jar-plugin.version>
     <maven-resources-plugin.version>3.3.0</maven-resources-plugin.version>
     <flatten-maven-plugin.version>1.2.7</flatten-maven-plugin.version>
     <tidy-maven-plugin.version>1.1.0</tidy-maven-plugin.version>
